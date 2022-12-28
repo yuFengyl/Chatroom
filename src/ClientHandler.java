@@ -15,18 +15,19 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+        String messageFrom = "   from" + socket.getRemoteSocketAddress();
         try {
             while (true){
                 String message = in.readLine();
-                System.out.println("receive message" + message + "from" + socket.getRemoteSocketAddress());
+                //System.out.println("receive message " + message + " from " + socket.getRemoteSocketAddress());
                 if (message.equals("exit")){
                     socket.close();
                     break;
                 }
-                server.sendMessage(message);
+                server.addMessage(message + messageFrom);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         finally {
             server.removeClient(this);
